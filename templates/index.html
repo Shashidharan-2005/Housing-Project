@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+    <title>Surprise Housing Price Predictor</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        label { display: inline-block; width: 200px; margin-top: 5px; }
+        input { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>🏠 Surprise Housing Price Predictor</h1>
+    {% if not num_features and not cat_features %}
+        <p>No trained model available. Please run <b>train_fast.py</b> first.</p>
+    {% else %}
+    <form method="post">
+        <h3>Numeric Features</h3>
+        {% for col in num_features %}
+            <label>{{ col }}</label>
+            <input type="number" step="any" name="{{ col }}" value="0"><br>
+        {% endfor %}
+        <h3>Categorical Features</h3>
+        {% for col in cat_features %}
+            <label>{{ col }}</label>
+            <input type="text" name="{{ col }}"><br>
+        {% endfor %}
+        <br>
+        <input type="submit" value="Predict">
+    </form>
+    {% if prediction %}
+        <h2>💰 Estimated Price: {{ prediction }}</h2>
+    {% endif %}
+    {% endif %}
+</body>
+</html>
